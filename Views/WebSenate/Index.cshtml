@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MSPGeneratorWeb.Models.WebSenateModels>
+
+@{
+    ViewBag.Title = "Senáty";
+}
+
+<h2>Přehled senátů.</h2>
+<h4>Zde můžete vytvářet či spravovat senáty, které jste vytvořil(a) pro simulaci.</h4>
+<hr />
+
+@if (Model.Count().ToString() == "0")
+{
+    <p>Zatím nemáte vytvořený žádný senát.</p>
+}<p>
+    @Html.ActionLink("Vytvořit nový senát", "Create")
+</p>
+<br />
+@if (Model.Count().ToString() != "0")
+{
+    @Html.Partial("_IndexPartial")
+}
+ 

@@ -1,0 +1,21 @@
+﻿@model MSPGeneratorWeb.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Nový uživatel";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@if (Request.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Html.Partial("_RegisterPartial");
+    @section scripts {
+        @* @Scripts.Render("~/bundles/jqueryval") *@
+        <script src="/Scripts/jquery.validate.min.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    }
+}
+else
+{
+    <p>Tato funkce je dostupná pouze administrátorovi.</p>
+}
+

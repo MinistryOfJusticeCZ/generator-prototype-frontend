@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Správa uživatelů";
+}
+
+<h2>@ViewBag.Title.</h2>
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        if (ViewBag.Message != null)
+        {
+            <p class="text-success">@ViewBag.Message</p>
+        }
+        if (ViewBag.Error != null)
+        {
+            <p class="text-danger">Nastala chyba! @ViewBag.Error</p>
+        }
+        <p>Tato stránka zobrazuje přehled uživatelů. S&nbsp;uživateli typu 'user' můžete provádět akce uvedené vpravo, u&nbsp;sebe můžete změnit heslo a u&nbsp;ostatních administrátorů není povolena žádná akce.</p>
+        <hr />
+
+        @Html.ActionLink("Vytvořit nového uživatele", "Register", "Account")
+        
+        @Html.Partial("_UsersPartial");
+    }
+    else
+    {
+        <p>Tato funkce je dostupná pouze administrátorovi.</p>
+    }
+}

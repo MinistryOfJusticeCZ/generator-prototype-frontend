@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Simulace";
+}
+
+<h2>Generátor náhodného přidělení: nastavení vstupů.</h2>
+<p>Tato stránka slouží pro zadání vstupních dat, na jejichž základě proběhne simulace (náhodné přidělování případů).</p>
+<hr />
+
+@{
+    if (@ViewBag.sen_n == 0)
+    {
+    <p class="text-danger">Buď zatím nemáte vytvořený žádný senát (@Html.ActionLink("vytvořit nový", "Create", "WebSenate")), anebo nemáte žádný senát povolený pro simulaci (@Html.ActionLink("zobrazit přehled senátů", "Index", "WebSenate")).</p>
+    }
+    else if (ViewBag.alg_n == 0)
+    {
+    <p class="text-danger">Simulace nemůže proběhnout - nejsou k dispozici žádné algoritmy pro náhodné generování. (Pravděpodobně se jedná o dočasnou chybu serveru, zkuste to později.)</p>
+    }
+    else
+    {
+        if (ViewBag.Error != null)
+        {
+        <p class="text-danger">@Html.Raw(ViewBag.Error)</p>
+        }
+
+    @Html.Partial("_IndexPartial")
+
+    @section scripts {
+        <script src="/Scripts/jquery.validate.min.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        }
+    }
+}
+

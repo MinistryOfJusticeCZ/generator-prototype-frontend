@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:cz:justice:jsb:services:GENERATOR:SimulationService" elementFormDefault="qualified" targetNamespace="urn:cz:justice:jsb:services:GENERATOR:SimulationService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd2" namespace="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" />
+  <xs:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="GetAlgorithmInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" minOccurs="0" name="id" nillable="true" type="q1:UserID" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAlgorithmInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAlgorithmInfoResult" nillable="true" type="tns:ArrayOfAlgorithmInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfAlgorithmInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AlgorithmInfo" nillable="true" type="tns:AlgorithmInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAlgorithmInfo" nillable="true" type="tns:ArrayOfAlgorithmInfo" />
+  <xs:complexType name="AlgorithmInfo">
+    <xs:sequence>
+      <xs:element name="AlgorithmDescription" nillable="true" type="xs:string" />
+      <xs:element name="AlgorithmID" nillable="true" type="xs:string" />
+      <xs:element name="AlgorithmName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AlgorithmInfo" nillable="true" type="tns:AlgorithmInfo" />
+  <xs:element name="DoSimulation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sparams" nillable="true" type="tns:SimulationParams" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SimulationParams">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="AlgorithmsToSimulate" nillable="true" type="q2:ArrayOfint" />
+      <xs:element name="CasesToDistribution" type="xs:int" />
+      <xs:element name="IterationsCount" type="xs:int" />
+      <xs:element xmlns:q3="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" name="Senates" nillable="true" type="q3:ArrayOfSenate" />
+      <xs:element xmlns:q4="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" name="User" nillable="true" type="q4:UserID" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimulationParams" nillable="true" type="tns:SimulationParams" />
+  <xs:element name="DoSimulationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DoSimulationResult" nillable="true" type="tns:ArrayOfSimulationResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfSimulationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SimulationResult" nillable="true" type="tns:SimulationResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSimulationResult" nillable="true" type="tns:ArrayOfSimulationResult" />
+  <xs:complexType name="SimulationResult">
+    <xs:sequence>
+      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="Data" nillable="true" type="q5:ArrayOfArrayOfint" />
+      <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="MaxDifference" nillable="true" type="q6:ArrayOfint" />
+      <xs:element name="UsedAlgorithm" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimulationResult" nillable="true" type="tns:SimulationResult" />
+</xs:schema>

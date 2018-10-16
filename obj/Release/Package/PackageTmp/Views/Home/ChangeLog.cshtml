@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "ChangeLog";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>Přehled změn.</h3>
+<hr />
+@{
+    if (User.IsInRole("admin"))
+    {
+        switch (TempData["code"])
+        {
+            case "1": <p class="alert alert-success">@TempData["message"]</p>; break;
+            case "2": <p class="alert alert-danger">Nastala chyba! @TempData["message"]</p>; break;
+        }
+
+        @Html.ActionLink("Editovat ChangeLog", "ChangeLogEdit", "Home");
+        <br /><br />
+    }
+
+    
+    if (ViewBag.obsahHtml == "")
+    {
+        <p>ChangeLog zatím neobsahuje žádná data.</p>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">@Html.Raw(ViewBag.obsahHtml)</div>
+        </div>
+    }
+}
+<br />

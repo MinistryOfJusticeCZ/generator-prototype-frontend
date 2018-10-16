@@ -1,0 +1,59 @@
+﻿@model MSPGeneratorWeb.ViewModel.SimulationViewModel
+
+@{ 
+    int i = 1;
+    string algId;
+    string algName;
+    string text;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        <p class="text-info">Pro simulaci se použijí níže uvedené senáty. Pokud je chcete změnit, přejděte na @Html.ActionLink("přehled senátů", "Index", "WebSenate").</p>
+        @Html.Raw(ViewBag.senates) @* seznam senátů z kontroleru *@
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NumCases">Počet případů: </label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="NumCases" name="NumCases" type="text" required autofocus value="@Model.Cases" data-val="true" data-val-number="Počet případů musí obsahovat číslo." data-val-range="Počet případů musí mít hodnotu mezi 1 a 10000." data-val-range-max="10000" data-val-range-min="1" data-val-required="Počet případů je povinný údaj." />
+                <span class="field-validation-valid text-danger" data-valmsg-for="NumCases" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <p class="text-info">Algoritmus (vyberte alespoň jeden):</p>
+        @foreach (MSPGeneratorWeb.HostedSimulationService.AlgorithmInfo alg in Model.Algos)
+        {
+            algId = alg.AlgorithmID;
+            algName = alg.AlgorithmName;
+            text = alg.AlgorithmDescription;
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="checkbox">
+                    <input name="algos" class="check-box" id="@algId" type="checkbox" value="@algId">
+                    <label class="control-label" for="@algId">použít při simulaci <em>@algName</em><br /> (@text)</label>
+                </div>
+            </div>
+        </div>
+        }
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NumIters">Počet iterací: </label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="NumIters" name="NumIters" type="text" required value="@Model.Iters" data-val="true" data-val-number="Počet iterací musí obsahovat číslo." data-val-range="Počet iterací musí mít hodnotu mezi 1 a 100." data-val-range-max="100" data-val-range-min="1" data-val-required="Počet iterací je povinný údaj." />
+                <span class="field-validation-valid text-danger" data-valmsg-for="NumIters" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spustit simulaci" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

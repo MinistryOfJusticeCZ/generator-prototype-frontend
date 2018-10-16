@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="urn:cz:justice:jsb:services:GENERATOR:SimulationService" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:cz:justice:jsb:services:GENERATOR:SimulationService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:cz:justice:jsb:services:GENERATOR:SimulationService/Imports">
+      <xsd:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd0" namespace="urn:cz:justice:jsb:services:GENERATOR:SimulationService" />
+      <xsd:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd2" namespace="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" />
+      <xsd:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SimulationService_GetAlgorithmInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlgorithmInfo" />
+  </wsdl:message>
+  <wsdl:message name="SimulationService_GetAlgorithmInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlgorithmInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimulationService_GetAlgorithmInfo_GeneratorServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" name="detail" element="q1:GeneratorServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="SimulationService_DoSimulation_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoSimulation" />
+  </wsdl:message>
+  <wsdl:message name="SimulationService_DoSimulation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoSimulationResponse" />
+  </wsdl:message>
+  <wsdl:message name="SimulationService_DoSimulation_GeneratorServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" name="detail" element="q2:GeneratorServiceFault" />
+  </wsdl:message>
+  <wsdl:portType name="SimulationService">
+    <wsdl:operation name="GetAlgorithmInfo">
+      <wsdl:input wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/GetAlgorithmInfo" message="tns:SimulationService_GetAlgorithmInfo_InputMessage" />
+      <wsdl:output wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/GetAlgorithmInfoResponse" message="tns:SimulationService_GetAlgorithmInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/GetAlgorithmInfoGeneratorServiceFaultFault" name="GeneratorServiceFaultFault" message="tns:SimulationService_GetAlgorithmInfo_GeneratorServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DoSimulation">
+      <wsdl:input wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/DoSimulation" message="tns:SimulationService_DoSimulation_InputMessage" />
+      <wsdl:output wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/DoSimulationResponse" message="tns:SimulationService_DoSimulation_OutputMessage" />
+      <wsdl:fault wsaw:Action="urn:cz:justice:jsb:services:GENERATOR:SimulationService/SimulationService/DoSimulationGeneratorServiceFaultFault" name="GeneratorServiceFaultFault" message="tns:SimulationService_DoSimulation_GeneratorServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,31 @@
+﻿@model MSPGeneratorWeb.Models.DeleteViewModel
+
+@{
+    ViewBag.Title = "Mazání uživatele";
+}
+
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <h2>Mazání uživatele <em>@Html.DisplayFor(m => m.UserName)</em>.</h2>
+
+        <h3>Opravdu chcete smazat tohoto uživatele z&nbsp;databáze? (Budou smazány i&nbsp;jeho senáty.)</h3>
+        <div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Ano, smazat" class="btn btn-default" /> |
+                    @Html.ActionLink("Ne, zpět na přehled uživatelů", "Users", "Account")
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>Tato funkce je dostupná pouze administrátorovi.</p>
+    }
+}
+

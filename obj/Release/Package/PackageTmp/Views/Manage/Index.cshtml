@@ -1,0 +1,27 @@
+﻿@model MSPGeneratorWeb.Models.IndexViewModel
+@{
+    ViewBag.Title = "Můj profil";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Údaje o uživatelském účtu.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Přihlašovací jméno:</dt>
+            <dd>@User.Identity.Name</dd>
+        @*<dt>E-mailová adresa:</dt>
+    <dd>@ViewBag.Email</dd>*@
+        <dt>Heslo:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Změnit heslo", "ChangePassword")
+            }
+            ]
+        </dd>
+    </dl>
+</div>

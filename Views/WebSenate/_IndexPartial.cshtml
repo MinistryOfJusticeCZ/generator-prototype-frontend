@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MSPGeneratorWeb.Models.WebSenateModels>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SenateName) (abecedně)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Load)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Acases)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Load)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Acases)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.ActionLink("Upravit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Smazat", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+
+</table>
+

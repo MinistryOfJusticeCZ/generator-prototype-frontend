@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" elementFormDefault="qualified" targetNamespace="urn:cz:justice:jsb:services:GENERATOR:GeneratorBase" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UserID">
+    <xs:sequence>
+      <xs:element name="ID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserID" nillable="true" type="tns:UserID" />
+  <xs:complexType name="GeneratorServiceFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeneratorServiceFault" nillable="true" type="tns:GeneratorServiceFault" />
+  <xs:complexType name="ArrayOfSenate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Senate" nillable="true" type="tns:Senate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSenate" nillable="true" type="tns:ArrayOfSenate" />
+  <xs:complexType name="Senate">
+    <xs:sequence>
+      <xs:element name="ActiveCases" type="xs:int" />
+      <xs:element name="Enabled" type="xs:boolean" />
+      <xs:element name="ID" nillable="true" type="xs:string" />
+      <xs:element name="Load" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Senate" nillable="true" type="tns:Senate" />
+</xs:schema>

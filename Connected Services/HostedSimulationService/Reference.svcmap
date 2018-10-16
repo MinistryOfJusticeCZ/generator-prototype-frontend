@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="02ca0ced-9d1e-47db-b2b9-1701539d9e00" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://147.32.22.50:35099/SimulationService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SimulationService.xsd" MetadataType="Schema" ID="a5ac53cf-8be7-41b0-ad17-30d663e12e8a" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SimulationService.wsdl" MetadataType="Wsdl" ID="bb88a493-0a5c-4cc7-bd3e-69b0261a819d" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?wsdl" />
+    <MetadataFile FileName="SimulationService1.xsd" MetadataType="Schema" ID="9fe2e4a7-accb-4873-9f5d-dd14badaccdc" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SimulationService2.xsd" MetadataType="Schema" ID="ba428b4b-dd97-47a6-ac1c-d65a53fc6c53" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SimulationService.disco" MetadataType="Disco" ID="c753c4fd-31a0-4a0e-9932-b59c608b67a8" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?disco" />
+    <MetadataFile FileName="SimulationService1.wsdl" MetadataType="Wsdl" ID="f9fa79ed-70f4-411c-a2c4-7bec45c3a93f" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="SimulationService3.xsd" MetadataType="Schema" ID="83082b2f-b06e-4fd2-a445-ab7beb11ae56" SourceId="1" SourceUrl="http://147.32.22.50:35099/SimulationService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

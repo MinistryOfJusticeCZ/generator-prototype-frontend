@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MSPGeneratorWeb.Models.UsersViewModel>
+
+<div class="panel-body">
+    <table class="table" id="UsersRoles">
+        <thead>
+            <tr>
+                <th>Přihlašovací jméno</th>
+                <th>E-mail</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+@{ 
+    foreach (var user in Model)
+    {
+    <tr>
+        <td>@user.UserName</td>
+        <td>@user.Email</td>
+        <td>@user.Role</td>
+        <td>@if (user.UserName == ViewBag.ActiveUser) {
+            @Html.ActionLink("Změnit heslo", "ChangePassword", "Manage") 
+        }
+        @if (user.Role == "user")
+        {
+            @Html.ActionLink("Nastavit heslo", "ResetPassword", "Account", new { username = user.UserName }, null)
+            <span> | </span>
+            @Html.ActionLink("Smazat", "Delete", "Account", new { username = user.UserName }, null)
+
+        }
+        </td>
+        </tr>
+    }
+}
+        </tbody> @* https://stackoverflow.com/questions/14152575/pass-parameter-to-controller-from-html-actionlink-mvc-4 *@
+    </table>
+</div>

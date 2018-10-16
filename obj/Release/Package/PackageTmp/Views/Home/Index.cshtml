@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Úvodní stránka";
+}
+
+@if (Request.IsAuthenticated)
+{
+    <h1>Generátor náhodného přidělení.</h1>
+    <p class="text-success">Vítejte, nyní jste úspěšně přihlášen(a).</p>
+    <p>Pokud jste zde poprvé, tak (před zahájením simulace) nejprve @Html.ActionLink("vytvořte senát", "Create", "WebSenate"). Každý uživatel vidí jen ty senáty, které sám vytvořil.</p>
+    <p>Máte-li již vytvořený alespoň jeden senát s příznakem "používat při simulaci", můžete @Html.ActionLink("zahájit simulaci", "Index", "Simulation") (náhodné přidělování případů), případně @Html.ActionLink("editovat údaje o senátech", "Index", "WebSenate").</p>
+}
+else
+{
+    <h1>Vítejte.</h1>
+    <p>Tyto stránky jsou přístupné pouze přihlášeným uživatelům. @Html.ActionLink("Přihlásit se.", "LogIn", "Account")</p>
+    <p>Pokud nemáte vytvořený účet, kontaktujte @Html.ActionLink("správce GNP", "Contact", "Home").</p>
+}

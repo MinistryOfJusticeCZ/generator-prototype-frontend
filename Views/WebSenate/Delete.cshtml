@@ -1,0 +1,20 @@
+﻿@model MSPGeneratorWeb.Models.WebSenateModels
+
+@{
+    ViewBag.Title = "Mazání senátu";
+}
+
+<h2>Mazání senátu <em>@Html.DisplayFor(model => model.SenateName)</em>.</h2>
+
+<h3>Opravdu chcete smazat tento senát z databáze?</h3>
+<div>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Ano, smazat" class="btn btn-default" /> |
+            @Html.ActionLink("Ne, zpět na přehled senátů", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,216 @@
+﻿@model MSPGeneratorWeb.ViewModel.SimulationResViewModel
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Výsledky simulace";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+
+<h2>@ViewBag.Title.</h2>
+<h3>Přehled senátů použitých v simulaci</h3>
+@Html.Raw(ViewBag.senates) @* seznam senátů z kontroleru *@
+<p>Níže jsou uvedeny výsledky jednotlivých algoritmů, které jste zadali v předchozím kroku. Pro každý algoritmus je uvedena tabulka a pod ní graf. Dole na stránce je <a href="#download">odkaz pro stažení excelovského souboru</a> s výsledky této simulace.</p>
+
+
+@{
+    int k;
+    int it = 0;
+    string colorMin = "rgba(153, 204, 255, 1)";
+    string colorAvg = "rgba(51, 204, 51, 1)";
+    string colorMax = "rgba(255, 51, 51, 1)";
+    string graphName;
+    string varGraph;
+    int min_iter;
+    int max_iter;
+
+    for (int index = 0; index < Model.AlgName.Count; index++)
+    {
+        string dataMin = "";
+        string dataAvg = "";
+        string dataMax = "";
+        string labelsX = "";
+        k = 1;
+        graphName = "graf" + index;
+        varGraph = "canvas" + index;
+        <h4>@Model.AlgName[index]</h4>
+        <table class="table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>iterace</th>
+                    @foreach (string jmeno in @Model.Senates)
+                    {
+                        <th> @jmeno </th>
+                        labelsX = string.Format("{0}, \"{1}\"", labelsX, jmeno);
+                    }
+                    @{ labelsX = labelsX.Remove(0, 2); }
+                    @if (ViewBag.isEquiv)
+                    {
+                        <th>diference*</th>
+                    }
+                </tr>
+            </thead>
+        @{ it = 0; }  
+        @foreach (var iterace_data in @Model.Data[index]) // pro jednotlive iterace algoritmu
+        {
+            <tr><th>@k.</th>
+
+            @foreach (var senat_data in iterace_data) // pro kazdy senat
+            {
+                <td>@senat_data</td>
+            }
+            @if (ViewBag.isEquiv)
+            {
+                <td>@Model.MinMaxDiff[index][it]</td>
+            }
+            @{ it++; }
+            </tr>
+            k++;
+        }
+          <tfoot>
+            <tr class="text-info">
+                <th>minimum</th>
+                @foreach (var mini in @Model.Min[index])
+                {
+                    <td>@mini</td>
+                    dataMin = string.Format("{0}, {1}", dataMin, mini);
+                }
+                @{ dataMin = dataMin.Remove(0, 2); }
+                @if (ViewBag.isEquiv)
+                {
+                    <td rowspan="4">max.<br />difer.<br />@Model.MinMaxDiff[index].Max()</td>
+                }
+            </tr>
+            <tr class="text-info">
+                <th>maximum</th>
+                @foreach (var maxi in @Model.Max[index])
+                {
+                    <td>@maxi</td>
+                    dataMax = string.Format("{0}, {1}", dataMax, maxi);
+                }
+                @{ dataMax = dataMax.Remove(0, 2); }
+            </tr>
+            <tr class="text-info text-center">
+                <th>průměr</th>
+                @foreach (var avge in @Model.Avg[index])
+                {
+                    <td>@string.Format("{0:F2}", avge)</td>
+                    dataAvg = string.Format("{0}, {1}", dataAvg, Convert.ToString(avge, CultureInfo.InvariantCulture));
+                }
+                @{ dataAvg = dataAvg.Remove(0, 2); }
+            </tr>
+            <tr class="text-info text-center">
+                <th>směrodat. odch.</th>
+                @foreach (var stdev in @Model.Stdev[index])
+                {
+                    <td>@string.Format("{0:F2}",stdev)</td>
+                }
+            </tr>
+          </tfoot>
+        </table>
+        if (ViewBag.isEquiv)
+        {
+            <p class="small">* Sloupec <strong>diference</strong> obsahuje rozdíl maximálního a minimálního počtu případů v jedné iteraci (je zobrazen, jelikož všechny senáty mají stejné zatížení i aktuální vytíženost).</p>
+        }
+<br />
+        <canvas id="@graphName" width="800" height="400"></canvas>
+<script>
+var @varGraph = document.getElementById("@graphName");
+
+Chart.defaults.global.defaultFontFamily = "Arial";
+Chart.defaults.global.defaultFontSize = 14;
+
+var dataMin = {
+  label: 'Minimum',
+  data: [@dataMin],
+  backgroundColor: '@colorMin',
+  borderWidth: 0,
+  yAxisID: "y"
+};
+
+var dataAvg = {
+  label: 'Průměr',
+  data: [@dataAvg],
+  backgroundColor: '@colorAvg',
+  borderWidth: 0,
+  yAxisID: "y"
+};
+
+var dataMax = {
+  label: 'Maximum',
+  data: [@dataMax],
+  backgroundColor: '@colorMax',
+  borderWidth: 0,
+  yAxisID: "y"
+};
+
+var labelsX = {
+        labels: [@Html.Raw(labelsX)],
+        datasets: [dataMin, dataAvg, dataMax]
+};
+
+    var chartOptions = {
+    title: {
+        display: true,
+        text: '@Html.Raw(Model.AlgName[index])'
+    },
+    scales: {
+        xAxes: [{
+            barPercentage: 1,
+            categoryPercentage: 0.6,
+            scaleLabel: {
+                display: true,
+                labelString: 'senáty použité pro simulaci'
+            }
+        }],
+        yAxes: [{
+            id: "y",
+            ticks: {
+                beginAtZero: true
+            },
+            scaleLabel: {
+                display: true,
+                labelString: 'počet případů'
+            }
+        }]
+  }
+};
+
+var barChart = new Chart(@varGraph, {
+  type: 'bar',
+  data: labelsX,
+  options: chartOptions
+});
+</script>
+    @*
+    https://codepen.io/Shokeen/pen/NpgbKg
+    https://stackoverflow.com/questions/21430701/drawing-charts-into-asp-net-mvc-4-razor-c-web-sites
+    https://canvasjs.com/javascript-charts/stacked-column-chart/
+    *@
+
+        <br />
+    }
+}
+    <br />
+
+
+@using (Html.BeginForm("Download", "Simulation", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <p>Možnost stažení souboru s výsledky celé simulace v MS Excelu (tuto akci lze u každé simulace provést pouze jednou):</p>
+    <div class="form-group" id="download">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Stáhnout XLSX" class="btn btn-default" onclick="this.disabled = true; return true;" />
+        </div>
+    </div>
+}
+<p>Nyní můžete @Html.ActionLink("zadat novou simulaci", "Index", "Simulation").</p>
+
+@section scripts {
+    <script>
+        $("input[type='submit']").on("click", function (e) {
+            $(this).attr("disabled", true);
+            $(this).attr("value", "XLSX staženo");
+            $(this).closest("form").submit()
+        });
+</script>
+}

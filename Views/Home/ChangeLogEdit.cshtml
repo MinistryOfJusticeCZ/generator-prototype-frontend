@@ -1,0 +1,48 @@
+﻿@model MSPGeneratorWeb.ViewModel.ChangelogViewModel
+@{
+    ViewBag.Title = "ChangeLogEdit";
+}
+
+<h2>ChangeLog - editace</h2>
+@{
+    if (Request.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <p>Pomocí editoru jazyka HTML můžete editovat text, který poté uložíte. (ChangeLog používá <a href="https://www.tinymce.com/features/" target="_blank" title="Dokumentace k TinyMCE (otevře nové okno prohlížeče).">editor TinyMCE</a>.)</p>
+        
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.TextAreaFor(model => model.ContentHtml, new { @id = "changelog" })
+                <br /><input type="submit" value="Uložit změny" />
+            </div>
+        }
+
+        @section headers{
+            <script src="~/scripts/tinymce/tinymce.min.js"></script> @* TinyMCE Script Reference *@
+            @* Script to wire up your TinyMCE editor (https://www.tinymce.com/docs/): *@
+            <script type="text/javascript">
+                // Initialize your tinyMCE Editor with your preferred options
+                tinyMCE.init({
+                    // General options
+                    selector: '#changelog',
+                    theme: 'modern',
+                    height: 500,
+                    menubar: false,
+                    statusbar: false,
+                    plugins: [
+                        'advlist autolink lists link charmap print preview textcolor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime table contextmenu paste code help wordcount'
+                    ],
+                    toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                    insertdatetime_formats: ["%d. %m. %Y", "%d. %m. %Y, %H:%M:%S", "%H:%M:%S", "%Y-%m-%d"]
+                });
+            </script>
+        }
+    }
+    else
+    {
+        <p>Tato funkce je dostupná pouze administrátorovi.</p>
+    }
+}
